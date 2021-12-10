@@ -47,7 +47,7 @@ def turn_loop():
 
         message = mark_board(input("ROW COLUMN | "), 'X' if is_player1 else 'O')
 
-        if message == 'X Wins' or message == 'O Wins':
+        if message == 'X Wins' or message == 'O Wins' or message == "It's a tie":
             return message
         elif message == '':
             is_player1 = not is_player1
@@ -87,15 +87,14 @@ def check_winner():
                   '|' + board[0][0] + board[1][1] + board[2][2] + '|' +
                   '|' + board[2][0] + board[1][1] + board[0][2] + '|')
 
-    try:
-        if win_string.index('|XXX|') > -1:
-            return "X Wins"
-    except ValueError:
-        try:
-            if win_string.index("|OOO|") > -1:
-                return "O Wins"
-        except ValueError:
-            return ''
+    if "-" not in win_string:
+        return "It's a tie"
+    elif "|XXX|" in win_string:
+        return "X Wins"
+    elif "|OOO|" in win_string:
+        return "O Wins"
+    else:
+        return ''
 
 
 main()
